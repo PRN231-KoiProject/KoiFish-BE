@@ -1,0 +1,12 @@
+F:\KoiFish\KoiFish_Core\bin\Debug\net8.0\KoiFish_Core.deps.json
+F:\KoiFish\KoiFish_Core\bin\Debug\net8.0\KoiFish_Core.dll
+F:\KoiFish\KoiFish_Core\bin\Debug\net8.0\KoiFish_Core.pdb
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.GeneratedMSBuildEditorConfig.editorconfig
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.AssemblyInfoInputs.cache
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.AssemblyInfo.cs
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.csproj.CoreCompileInputs.cache
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.dll
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\refint\KoiFish_Core.dll
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.pdb
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\ref\KoiFish_Core.dll
+F:\KoiFish\KoiFish_Core\obj\Debug\net8.0\KoiFish_Core.csproj.AssemblyReference.cache

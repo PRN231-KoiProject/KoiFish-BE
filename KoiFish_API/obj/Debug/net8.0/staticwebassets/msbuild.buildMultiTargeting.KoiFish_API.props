@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\KoiFish_API.props" />
+</Project>
