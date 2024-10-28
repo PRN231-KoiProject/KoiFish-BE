@@ -25,9 +25,4 @@
     <ProjectReference Include="..\KoiFish_Core\KoiFish_Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

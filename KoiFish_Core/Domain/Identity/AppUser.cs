@@ -14,11 +14,10 @@ namespace KoiFish_Core.Domain.Identity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string? Gender { get; set; }
         public int? BirthYear { get; set; }
-        public string Element { get; set; }
-        public string Avatar { get; set; }
+        public string? Element { get; set; }
+        public string? Avatar { get; set; }
         public bool Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

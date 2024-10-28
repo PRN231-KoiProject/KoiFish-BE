@@ -6,6 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using KoiFish_API.AutoMapper;
 using KoiFish_API;
+using KoiFish_Core.Repositories;
+using KoiFish_Data.Repositories;
+using KoiFish_Core.Services;
+using KoiFish_Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +28,8 @@ builder.Services.ConfigureTokenAndManagerIdentity();
 builder.Services.AddCustomJwtAuthentication(configuration);
 
 // DI
-
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 // JWT
 builder.Services.AddSwaggerGen(option =>
