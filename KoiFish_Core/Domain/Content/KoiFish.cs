@@ -14,23 +14,21 @@ namespace KoiFish_Core.Domain.Content
         [Key]
         public Guid KoiFishId { get; set; }
         public Guid CategoryId { get; set; }
-        public Guid ColorId { get; set; }
         public Guid UserId { get; set; }
         public string FishName { get; set; }
-        public string FishElement { get; set;}
-        public string Size {  get; set; }
+        public string FishElement { get; set; }
+        public string Size { get; set; }
         public decimal PriceRange { get; set; }
         public string Lifespan { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set;}
-
+        public DateTime UpdatedDate { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
-        [ForeignKey(nameof(ColorId))]
-        public Color Color { get; set; }
         [ForeignKey(nameof(UserId))]
         public AppUser User { get; set; }
 
         public ICollection<FishPond> FishPonds { get; set; }
+        public ICollection<FishColor> FishColors { get; set; }
+        public ICollection<Image>Images{get;set;}
     }
 }

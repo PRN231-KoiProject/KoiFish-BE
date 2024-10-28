@@ -30,6 +30,13 @@ builder.Services.AddCustomJwtAuthentication(configuration);
 // DI
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IColorRepository,ColorRepository>();
+builder.Services.AddScoped<IColorService,ColorService>();
+builder.Services.AddScoped<IKoiFishRepository,KoiFishRepository>();
+builder.Services.AddScoped<IKoiFishService,KoiFishService>();
+builder.Services.AddScoped<IKoiFishColorRepository,KoiFishColorRepository>();
+builder.Services.AddScoped<IImageRepository,ImageRepository>();
+
 
 // JWT
 builder.Services.AddSwaggerGen(option =>

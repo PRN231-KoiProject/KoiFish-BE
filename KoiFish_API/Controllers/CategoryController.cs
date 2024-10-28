@@ -1,4 +1,5 @@
 ﻿using KoiFish_Core;
+using KoiFish_Core.Models.Requests;
 using KoiFish_Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,36 @@ namespace KoiFish_API.Controllers
             return Ok(_resultModel = new ResultModel
             {
                 Success = true,
-                Status = (int) HttpStatusCode.OK,
+                Status = (int)HttpStatusCode.OK,
                 Data = listCategory,
                 Message = "Categories retrieved successfully."
             });
         }
+        [HttpPost]
+        public async Task<ActionResult<ResultModel>> AddCategory(CreateCategoryRequest request)
+        {
+            var updateSuccess = await _categoryService.CreateAsync(request);
+
+            if (!updateSuccess)
+            {
+                _resultModel = new ResultModel
+                {
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Success = false,
+                    Message = "Create Category fail."
+                };
+                return BadRequest(_resultModel);
+            }
+
+            _resultModel = new ResultModel
+            {
+                Status = (int)HttpStatusCode.OK,
+                Success = true,
+                Message = "Create Category Successfully.",
+            };
+
+            return Ok(_resultModel);
+        }
+
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KoiFish_Data.Migrations
 {
     [DbContext(typeof(KoiFishDbContext))]
-    [Migration("20241028062344_InitialDB")]
-    partial class InitialDB
+    [Migration("20241028171049_DatabaseMigration")]
+    partial class DatabaseMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,6 +93,27 @@ namespace KoiFish_Data.Migrations
                     b.ToTable("Colors");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.FishColor", b =>
+                {
+                    b.Property<Guid>("FishColorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("KoiFishId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FishColorId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("KoiFishId");
+
+                    b.ToTable("FishColors");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.FishPond", b =>
                 {
                     b.Property<Guid>("FishPondId")
@@ -163,9 +184,6 @@ namespace KoiFish_Data.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ColorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -198,11 +216,9 @@ namespace KoiFish_Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ColorId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("KoiFishs");
+                    b.ToTable("KoiFishes");
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Content.PondFeature", b =>
@@ -483,6 +499,25 @@ namespace KoiFish_Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.FishColor", b =>
+                {
+                    b.HasOne("KoiFish_Core.Domain.Content.Color", "Color")
+                        .WithMany("FishColors")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
+                        .WithMany("FishColors")
+                        .HasForeignKey("KoiFishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("KoiFish");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.FishPond", b =>
                 {
                     b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
@@ -505,7 +540,7 @@ namespace KoiFish_Data.Migrations
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Image", b =>
                 {
                     b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
-                        .WithMany()
+                        .WithMany("Images")
                         .HasForeignKey("KoiFishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -532,12 +567,6 @@ namespace KoiFish_Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KoiFish_Core.Domain.Content.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KoiFish_Core.Domain.Identity.AppUser", "User")
                         .WithMany("KoiFishs")
                         .HasForeignKey("UserId")
@@ -545,8 +574,6 @@ namespace KoiFish_Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Color");
 
                     b.Navigation("User");
                 });
@@ -556,9 +583,18 @@ namespace KoiFish_Data.Migrations
                     b.Navigation("ImageBs");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.Color", b =>
+                {
+                    b.Navigation("FishColors");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.KoiFish", b =>
                 {
+                    b.Navigation("FishColors");
+
                     b.Navigation("FishPonds");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Content.PondFeature", b =>

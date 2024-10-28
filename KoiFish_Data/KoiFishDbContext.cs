@@ -20,10 +20,11 @@ namespace KoiFish_Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<KoiFish> KoiFishs { get; set; }
+        public DbSet<KoiFish> KoiFishes { get; set; }
         public DbSet<FishPond> FishPonds { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<PondFeature> PondFeatures { get; set; }
+        public DbSet<FishColor> FishColors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

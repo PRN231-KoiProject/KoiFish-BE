@@ -14,5 +14,10 @@ namespace KoiFish_Data.Repositories
         public CategoryRepository(KoiFishDbContext context) : base(context)
         {
         }
+
+        public Task<int> SaveChangeAsync()
+        {
+            return _context.SaveChangesAsync();
+        }
     }
 }

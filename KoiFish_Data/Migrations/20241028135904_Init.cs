@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KoiFish_Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -203,12 +203,11 @@ namespace KoiFish_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KoiFishs",
+                name: "KoiFishes",
                 columns: table => new
                 {
                     KoiFishId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FishName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FishElement = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -220,21 +219,15 @@ namespace KoiFish_Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KoiFishs", x => x.KoiFishId);
+                    table.PrimaryKey("PK_KoiFishes", x => x.KoiFishId);
                     table.ForeignKey(
-                        name: "FK_KoiFishs_Categories_CategoryId",
+                        name: "FK_KoiFishes_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_KoiFishs_Colors_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "Colors",
-                        principalColumn: "ColorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_KoiFishs_Users_UserId",
+                        name: "FK_KoiFishes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -261,6 +254,31 @@ namespace KoiFish_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FishColors",
+                columns: table => new
+                {
+                    FishColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ColorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KoiFishId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FishColors", x => x.FishColorId);
+                    table.ForeignKey(
+                        name: "FK_FishColors_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "ColorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FishColors_KoiFishes_KoiFishId",
+                        column: x => x.KoiFishId,
+                        principalTable: "KoiFishes",
+                        principalColumn: "KoiFishId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FishPonds",
                 columns: table => new
                 {
@@ -272,9 +290,9 @@ namespace KoiFish_Data.Migrations
                 {
                     table.PrimaryKey("PK_FishPonds", x => x.FishPondId);
                     table.ForeignKey(
-                        name: "FK_FishPonds_KoiFishs_KoiFishId",
+                        name: "FK_FishPonds_KoiFishes_KoiFishId",
                         column: x => x.KoiFishId,
-                        principalTable: "KoiFishs",
+                        principalTable: "KoiFishes",
                         principalColumn: "KoiFishId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -297,9 +315,9 @@ namespace KoiFish_Data.Migrations
                 {
                     table.PrimaryKey("PK_Images", x => x.ImageId);
                     table.ForeignKey(
-                        name: "FK_Images_KoiFishs_KoiFishId",
+                        name: "FK_Images_KoiFishes_KoiFishId",
                         column: x => x.KoiFishId,
-                        principalTable: "KoiFishs",
+                        principalTable: "KoiFishes",
                         principalColumn: "KoiFishId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -308,6 +326,16 @@ namespace KoiFish_Data.Migrations
                 name: "IX_Blogs_UserId",
                 table: "Blogs",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FishColors_ColorId",
+                table: "FishColors",
+                column: "ColorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FishColors_KoiFishId",
+                table: "FishColors",
+                column: "KoiFishId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FishPonds_KoiFishId",
@@ -330,18 +358,13 @@ namespace KoiFish_Data.Migrations
                 column: "KoiFishId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KoiFishs_CategoryId",
-                table: "KoiFishs",
+                name: "IX_KoiFishes_CategoryId",
+                table: "KoiFishes",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KoiFishs_ColorId",
-                table: "KoiFishs",
-                column: "ColorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_KoiFishs_UserId",
-                table: "KoiFishs",
+                name: "IX_KoiFishes_UserId",
+                table: "KoiFishes",
                 column: "UserId");
         }
 
@@ -364,6 +387,9 @@ namespace KoiFish_Data.Migrations
                 name: "AppUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FishColors");
+
+            migrationBuilder.DropTable(
                 name: "FishPonds");
 
             migrationBuilder.DropTable(
@@ -376,19 +402,19 @@ namespace KoiFish_Data.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
+                name: "Colors");
+
+            migrationBuilder.DropTable(
                 name: "PondFeatures");
 
             migrationBuilder.DropTable(
                 name: "Blogs");
 
             migrationBuilder.DropTable(
-                name: "KoiFishs");
+                name: "KoiFishes");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Users");

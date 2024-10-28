@@ -4,6 +4,7 @@ using KoiFish_Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KoiFish_Data.Migrations
 {
     [DbContext(typeof(KoiFishDbContext))]
-    partial class KoiFishDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028170539_DbInit")]
+    partial class DbInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,7 +540,7 @@ namespace KoiFish_Data.Migrations
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Image", b =>
                 {
                     b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
-                        .WithMany("Images")
+                        .WithMany("Colors")
                         .HasForeignKey("KoiFishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -587,11 +590,11 @@ namespace KoiFish_Data.Migrations
 
             modelBuilder.Entity("KoiFish_Core.Domain.Content.KoiFish", b =>
                 {
+                    b.Navigation("Colors");
+
                     b.Navigation("FishColors");
 
                     b.Navigation("FishPonds");
-
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Content.PondFeature", b =>

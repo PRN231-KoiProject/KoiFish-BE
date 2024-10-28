@@ -10,6 +10,6 @@ namespace KoiFish_Core.Repositories
 {
     public interface ICategoryRepository : IRepositoryBase<Category, Guid>
     {
-        
+        Task<int>SaveChangeAsync();
     }
 }

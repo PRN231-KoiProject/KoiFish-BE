@@ -13,5 +13,6 @@ namespace KoiFish_Core.Domain.Content
         public Guid ColorId { get; set; }
         public string ColorName { get; set; }
         public string Description { get; set; }
+        public ICollection<FishColor> FishColors { get; set; }
     }
 }
