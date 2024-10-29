@@ -44,5 +44,49 @@ namespace KoiFish_API.Controllers
                 Success = true
             });
         }
+        [HttpPut]
+        [Route("blogId")]
+        public async Task<ActionResult<ResultModel>> Update(UpdateBlogRequest request, Guid blogId)
+        {
+            var result = await _blogService.UpdateBlog(blogId, request);
+            if (result == null) return new ResultModel
+            {
+                Data = false,
+                Message = "Update fail.",
+                Status = (int)HttpStatusCode.InternalServerError,
+                Success = false
+
+            };
+            return new ResultModel
+            {
+                Data = true,
+                Message = "update success.",
+                Status = (int)HttpStatusCode.NoContent,
+                Success = true,
+            };
+
+        }
+        [HttpDelete]
+        [Route("blogId")]
+        public async Task<ActionResult<ResultModel>> Remove(Guid blogId)
+        {
+            var result = await _blogService.DeleteBlog(blogId);
+            if (result == null) return new ResultModel
+            {
+                Data = false,
+                Message = "Remove fail.",
+                Status = (int)HttpStatusCode.InternalServerError,
+                Success = false
+
+            };
+            return new ResultModel
+            {
+                Data = true,
+                Message = "Remove success.",
+                Status = (int)HttpStatusCode.NoContent,
+                Success = true,
+            };
+
+        }
     }
 }

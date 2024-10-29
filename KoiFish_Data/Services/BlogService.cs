@@ -33,9 +33,26 @@ namespace KoiFish_Data.Services
             return true;
         }
 
-        public Task<bool> UpdateBlog(CreateBlogRequest request)
+        public async Task<bool> DeleteBlog(Guid id)
         {
-             return null; 
+            var blogId = await _blogRepository.GetByIdAsync(id);
+            if(blogId == null) return false;
+            _blogRepository.Remove(blogId);
+            await _blogRepository.SaveChangeAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateBlog(Guid id, UpdateBlogRequest request)
+        {
+            var blogId = await _blogRepository.GetByIdAsync(id);
+            if (blogId == null) return false;
+            blogId.Content = request.Content;
+            blogId.Title = request.Title;
+            blogId.CreatedDate = DateTime.Now;
+            blogId.UpdatedDate = DateTime.Now;
+            _blogRepository.Update(blogId);
+            await _blogRepository.SaveChangeAsync();
+            return true;
         }
     }
 }
