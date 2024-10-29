@@ -72,5 +72,24 @@ namespace KoiFish_Data.Services
             };
 
         }
+
+        public async Task<PondFeatureResponse> GetById(Guid id)
+        {
+            var ponds = await _pondFeatureRepository.GetByIdAsync(id);
+            return new PondFeatureResponse
+            {
+                CompatibleFish = ponds.CompatibleFish,
+                Direction = ponds.Direction,
+                Element = ponds.Element,
+                FilterType = ponds.FilterType,
+                MaintenanceLevel = ponds.MaintenanceLevel,
+                PondId = ponds.PondId,
+                PondMaterial = ponds.PondMaterial,
+                Position = ponds.Position,
+                Shape = ponds.Shape,
+                Size = ponds.Size,
+                WaterSource = ponds.WaterSource
+            };
+        }
     }
 }
