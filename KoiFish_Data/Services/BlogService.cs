@@ -32,5 +32,10 @@ namespace KoiFish_Data.Services
             await _blogRepository.SaveChangeAsync();
             return true;
         }
+
+        public Task<bool> UpdateBlog(CreateBlogRequest request)
+        {
+             return null; 
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace KoiFish_Core.Services
     public interface IBlogService
     {
         Task<bool> AddBlog(CreateBlogRequest request);
+        Task<bool>UpdateBlog(CreateBlogRequest request);
     }
 }
