@@ -88,5 +88,68 @@ namespace KoiFish_API.Controllers
             };
 
         }
+        [HttpGet]
+        public async Task<ActionResult<ResultModel>> GetAll(int page = 1, int limit = 10)
+        {
+            var result = await _blogService.GetAllBlogASync(page, limit);
+            if (result == null) return new ResultModel
+            {
+                Data = false,
+                Message = "Blogs retrieved fail.",
+                Status = (int)HttpStatusCode.InternalServerError,
+
+            };
+            return new ResultModel
+            {
+                Data = result,
+                Message = "Blogs retrieved successfully",
+                Status = (int)HttpStatusCode.OK,
+                Success = true
+
+            };
+        }
+        [HttpGet]
+        [Route("blogId")]
+        public async Task<ActionResult<ResultModel>> GetById(Guid id)
+        {
+            var result = await _blogService.GetBlogByIdAsync(id);
+            if (result == null) return new ResultModel
+            {
+                Data = false,
+                Message = "Blogs retrieved fail.",
+                Status = (int)HttpStatusCode.InternalServerError,
+
+            };
+            return new ResultModel
+            {
+                Data = result,
+                Message = "Blogs retrieved successfully",
+                Status = (int)HttpStatusCode.OK,
+                Success = true
+
+            };
+        }
+        [HttpGet]
+        [Route("userName")]
+        public async Task<ActionResult<ResultModel>> GetById(string userName)
+        {
+            var result = await _blogService.GetBlogByUserNameAsync(userName);
+            if (result == null) return new ResultModel
+            {
+                Data = false,
+                Message = "Blogs retrieved fail.",
+                Status = (int)HttpStatusCode.InternalServerError,
+
+            };
+            return new ResultModel
+            {
+                Data = result,
+                Message = "Blogs retrieved successfully",
+                Status = (int)HttpStatusCode.OK,
+                Success = true
+
+            };
+        }
+
     }
 }

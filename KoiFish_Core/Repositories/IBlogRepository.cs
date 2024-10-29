@@ -12,6 +12,8 @@ namespace KoiFish_Core.Repositories
     public interface IBlogRepository : IRepositoryBase<Blog, Guid>
     {
         Task<int> SaveChangeAsync();
-
+        Task<PaginatedResult<Blog>>GetAllBlogAsync(int page , int limit);
+        Task<Blog>GetBlogByIdAsync(Guid id);
+        Task<Blog>GetBlogByUserNameAsync(string name);
     }
 }
