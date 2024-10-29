@@ -59,11 +59,26 @@ namespace KoiFish_Data.Services
         public async Task<CategoryResponse> GetCategoryByIdAsync(Guid id)
         {
             var categoryId = await _categoryRepository.GetByIdAsync(id);
-            return new CategoryResponse{
+            return new CategoryResponse
+            {
                 Breeds = categoryId.Breeds,
                 CategoryId = categoryId.CategoryId,
                 Description = categoryId.Description
             };
+        }
+
+        public async Task<bool> UpdateCategory(Guid id, CreateCategoryRequest request)
+        {
+            var categoryId = await _categoryRepository.GetByIdAsync(id);
+            if (categoryId == null)
+            {
+                return false;    
+            }
+            categoryId.Breeds = request.Breeds;
+            categoryId.Description = request.Description;
+            _categoryRepository.Update(categoryId);
+            await _categoryRepository.SaveChangeAsync();
+            return true;
         }
     }
 }

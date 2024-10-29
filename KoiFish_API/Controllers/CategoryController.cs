@@ -52,6 +52,39 @@ namespace KoiFish_API.Controllers
                 Message = "Categories retrieved successfully."
             });
         }
+        [HttpPut]
+        [Route("{categoryId}")]
+        public async Task<ActionResult<ResultModel>> Update(Guid categoryId, CreateCategoryRequest request)
+        {
+            var listCategory = await _categoryService.GetCategoryByIdAsync(categoryId);
+            var update = _categoryService.UpdateCategory(categoryId, request);
+            if (listCategory == null)
+            {
+                return Ok(_resultModel = new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Category not found."
+                });
+            }
+            if (update == null)
+            {
+                return Ok(_resultModel = new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Data = false,
+                    Message = "Categories update fail."
+                });
+            }
+            return Ok(_resultModel = new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Data = true,
+                Message = "Categories Update successfully."
+            });
+        }
         [HttpPost]
         public async Task<ActionResult<ResultModel>> AddCategory(CreateCategoryRequest request)
         {
