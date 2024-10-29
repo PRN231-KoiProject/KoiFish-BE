@@ -139,6 +139,19 @@ namespace KoiFish_API.Controllers
                     Message = "KoiFish not found."
                 });
             }
+            var remove = await _koiFishService.DeleteKoiFish(koiFishId);
+            if (remove == null)
+            {
+
+                return new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Message = "Remove fail.",
+                    Data = false
+                };
+
+            }
             return Ok(new ResultModel
             {
                 Success = true,
@@ -146,6 +159,8 @@ namespace KoiFish_API.Controllers
                 Message = "Remove KoiFish Success.",
                 Data = true
             });
+
+
         }
     }
 }

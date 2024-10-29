@@ -92,6 +92,15 @@ namespace KoiFish_Data.Services
             };
         }
 
+        public async Task<bool> RemoveAsync(Guid id)
+        {
+            var pondId = await _pondFeatureRepository.GetByIdAsync(id);
+            if (pondId == null) return false;
+            _pondFeatureRepository.Remove(pondId);
+            await _pondFeatureRepository.SaveChangeAsync();
+            return true;
+        }
+
         public async Task<bool> UpdateAsync(UpdatePondFeatureRequest request, Guid id)
         {
             var pond = await _pondFeatureRepository.GetByIdAsync(id);

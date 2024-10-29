@@ -112,5 +112,43 @@ namespace KoiFish_API.Controllers
                 Message = "Update success."
             });
         }
+        [HttpDelete]
+        [Route("{pondFeatureId}")]
+        public async Task<ActionResult<ResultModel>> DeletePondFeature(Guid pondFeatureId)
+        {
+            var koiFish = await _pondFeatureService.GetById(pondFeatureId);
+            if (koiFish == null)
+            {
+
+                return NotFound(new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Pond Feature not found."
+                });
+            }
+            var remove = await _pondFeatureService.RemoveAsync(pondFeatureId);
+            if (remove == null)
+            {
+
+                return new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Message = "Remove fail.",
+                    Data = false
+                };
+
+            }
+            return Ok(new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.NoContent,
+                Message = "Remove  Success.",
+                Data = true
+            });
+
+
+        }
     }
 }

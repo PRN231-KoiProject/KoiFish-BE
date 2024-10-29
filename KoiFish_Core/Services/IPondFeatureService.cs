@@ -13,5 +13,6 @@ namespace KoiFish_Core.Services
         Task<PageResult<PondFeatureResponse>> GetAllPondFeatureAsync(int page, int limit);
         Task<PondFeatureResponse>GetById(Guid id);
         Task<bool>UpdateAsync(UpdatePondFeatureRequest request , Guid id);
+        Task<bool>RemoveAsync(Guid id);
     }
 }
