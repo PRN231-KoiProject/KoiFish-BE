@@ -158,10 +158,10 @@ namespace KoiFish_Data.Services
             koiFishId.Lifespan = request.Lifespan;
             if (request.FishColors != null)
             {
-                koiFishId.FishColors.Clear();
+                koiFishId.FishColors?.Clear();
                 foreach (var color in request.FishColors)
                 {
-                    koiFishId.FishColors.Add(new FishColor
+                    koiFishId.FishColors?.Add(new FishColor
                     {
                         KoiFishId = id,
                         ColorId = color.ColorId
@@ -170,10 +170,10 @@ namespace KoiFish_Data.Services
             }
             if (request.Images != null)
             {
-                koiFishId.Images.Clear();
+                koiFishId.Images?.Clear();
                 foreach (var imageRequest in request.Images)
                 {
-                    koiFishId.Images.Add(new Image
+                    koiFishId.Images?.Add(new Image
                     {
                         KoiFishId = id,
                         ImageUrl = imageRequest.ImageUrl
