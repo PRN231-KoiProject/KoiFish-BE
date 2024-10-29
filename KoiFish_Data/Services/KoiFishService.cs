@@ -77,7 +77,7 @@ namespace KoiFish_Data.Services
             return true;
         }
 
-        public async Task<KoiFish_Core.PageResult<KoiFishResponse>> GetAllKoiFishAsync(int page, int limit)
+        public async Task<PageResult<KoiFishResponse>> GetAllKoiFishAsync(int page, int limit)
         {
             var paginateKoiFishes = await _KoiFishRepository.GetAllKoiFistAsync(page, limit);
             var KoiFishResponse = new List<KoiFishResponse>();
@@ -104,7 +104,7 @@ namespace KoiFish_Data.Services
                 });
 
             }
-            return new KoiFish_Core.PageResult<KoiFishResponse>
+            return new PageResult<KoiFishResponse>
             {
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(paginateKoiFishes.TotalCount / (double)limit),

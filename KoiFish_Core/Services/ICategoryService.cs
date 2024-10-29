@@ -10,7 +10,8 @@ namespace KoiFish_Core.Services
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<CategoryResponse>> GetAllCategories();
-        Task<bool>CreateAsync(CreateCategoryRequest request);
+        Task<PageResult<CategoryResponse>> GetAllCategories(int page, int limit);
+        Task<bool> CreateAsync(CreateCategoryRequest request);
+        Task<CategoryResponse>GetCategoryByIdAsync(Guid id);
     }
 }

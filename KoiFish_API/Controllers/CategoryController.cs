@@ -19,9 +19,31 @@ namespace KoiFish_API.Controllers
             _resultModel = new ResultModel();
         }
         [HttpGet]
-        public async Task<ActionResult<ResultModel>> GetAll()
+        public async Task<ActionResult<ResultModel>> GetAll(int page = 1, int limit = 10)
         {
-            var listCategory = await _categoryService.GetAllCategories();
+            var listCategory = await _categoryService.GetAllCategories(page, limit);
+            return Ok(_resultModel = new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Data = listCategory,
+                Message = "Categories retrieved successfully."
+            });
+        }
+        [HttpGet]
+        [Route("{categoryId}")]
+        public async Task<ActionResult<ResultModel>> GetById(Guid categoryId)
+        {
+            var listCategory = await _categoryService.GetCategoryByIdAsync(categoryId);
+            if (categoryId == null)
+            {
+                return Ok(_resultModel = new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Category not found."
+                });
+            }
             return Ok(_resultModel = new ResultModel
             {
                 Success = true,

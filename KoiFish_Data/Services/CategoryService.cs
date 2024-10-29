@@ -34,10 +34,36 @@ namespace KoiFish_Data.Services
             return true;
         }
 
-        public async Task<IEnumerable<CategoryResponse>> GetAllCategories()
+        public async Task<PageResult<CategoryResponse>> GetAllCategories(int page, int limit)
         {
-            var listCategory = await _categoryRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CategoryResponse>>(listCategory);
+            var listCategory = await _categoryRepository.GetAllCategories(page, limit);
+            var categoryResponse = new List<CategoryResponse>();
+            foreach (var category in listCategory.Items)
+            {
+                categoryResponse.Add(new CategoryResponse
+                {
+                    Breeds = category.Breeds,
+                    CategoryId = category.CategoryId,
+                    Description = category.Description,
+                });
+            }
+            return new PageResult<CategoryResponse>
+            {
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(listCategory.TotalCount / (double)limit),
+                TotalItems = listCategory.TotalCount,
+                Items = categoryResponse
+            };
+        }
+
+        public async Task<CategoryResponse> GetCategoryByIdAsync(Guid id)
+        {
+            var categoryId = await _categoryRepository.GetByIdAsync(id);
+            return new CategoryResponse{
+                Breeds = categoryId.Breeds,
+                CategoryId = categoryId.CategoryId,
+                Description = categoryId.Description
+            };
         }
     }
 }
