@@ -57,7 +57,7 @@ namespace KoiFish_API.Controllers
         }
         [HttpGet]
         [Route("{pondFeatureId}")]
-        public async Task<ActionResult<ResultModel>> GetAll(Guid pondFeatureId)
+        public async Task<ActionResult<ResultModel>> GetById(Guid pondFeatureId)
         {
             var pond = await _pondFeatureService.GetById(pondFeatureId);
             if (pond == null)
@@ -75,6 +75,41 @@ namespace KoiFish_API.Controllers
                 Status = (int)HttpStatusCode.OK,
                 Data = pond,
                 Message = "Pond retrieved successfully."
+            });
+        }
+        [HttpPut]
+        [Route("{pondFeatureId}")]
+        public async Task<ActionResult<ResultModel>> Update(Guid pondFeatureId, UpdatePondFeatureRequest request)
+        {
+            var pond = await _pondFeatureService.GetById(pondFeatureId);
+
+            if (pond == null)
+            {
+                return new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Pond not found. "
+                };
+            }
+            var update = await _pondFeatureService.UpdateAsync(request, pondFeatureId);
+
+            if (update == null)
+            {
+                return new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Message = "update fail.",
+                    Data = false
+                };
+            }
+            return Ok(new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Data = true,
+                Message = "Update success."
             });
         }
     }

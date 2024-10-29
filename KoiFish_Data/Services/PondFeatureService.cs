@@ -91,5 +91,22 @@ namespace KoiFish_Data.Services
                 WaterSource = ponds.WaterSource
             };
         }
+
+        public async Task<bool> UpdateAsync(UpdatePondFeatureRequest request, Guid id)
+        {
+            var pond = await _pondFeatureRepository.GetByIdAsync(id);
+            pond.CompatibleFish = request.CompatibleFish;
+            pond.Direction = request.Direction;
+            pond.Element = request.Element;
+            pond.FilterType = request.FilterType;
+            pond.MaintenanceLevel = request.MaintenanceLevel;
+            pond.Position = request.Position;
+            pond.Shape = request.Shape;
+            pond.Size = request.Size;
+            pond.WaterSource = request.WaterSource;
+            _pondFeatureRepository.Update(pond);
+            await _pondFeatureRepository.SaveChangeAsync();
+            return true;
+        }
     }
 }
