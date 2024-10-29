@@ -12,11 +12,11 @@ namespace KoiFish_Core.Models.Requests
         public string Size { get; set; }
         public decimal PriceRange { get; set; }
         public string Lifespan { get; set; }
-       
+
         public List<UpdateFishColorRequest> FishColors { get; set; }
         public List<UpdateImagesRequest> Images { get; set; }
     }
-     public class UpdateFishColorRequest
+    public class UpdateFishColorRequest
     {
         public Guid ColorId { get; set; }
     }

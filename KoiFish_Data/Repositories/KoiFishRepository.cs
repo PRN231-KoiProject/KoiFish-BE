@@ -45,7 +45,7 @@ namespace KoiFish_Data.Repositories
                 .Include(k => k.FishColors).ThenInclude(fc => fc.Color)
                 .Include(i => i.Images)
                 .Include(u => u.User)
-                .FirstOrDefaultAsync(); 
+                .FirstOrDefaultAsync();
 
             return query;
         }

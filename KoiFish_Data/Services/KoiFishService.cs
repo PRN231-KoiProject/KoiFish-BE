@@ -107,26 +107,26 @@ namespace KoiFish_Data.Services
 
             if (query == null)
             {
-                return null; 
+                return null;
             }
 
             return new KoiFishResponse
-            {
-                Category = query.Category?.Breeds, 
+            {   KoiFishId = query.KoiFishId,
+                Category = query.Category?.Breeds,
                 FishElement = query.FishElement,
                 FishName = query.FishName,
                 Lifespan = query.Lifespan,
                 PriceRange = query.PriceRange,
                 Size = query.Size,
-                User = query.User?.FullName, 
+                User = query.User?.FullName,
                 Colors = query.FishColors?.Select(fc => new ColorResponses
                 {
-                    ColorName = fc.Color?.ColorName 
-                }).ToList() ?? new List<ColorResponses>(), 
+                    ColorName = fc.Color?.ColorName
+                }).ToList() ?? new List<ColorResponses>(),
                 Images = query.Images?.Select(i => new ImageResponses
                 {
                     ImageUrl = i.ImageUrl
-                }).ToList() ?? new List<ImageResponses>() 
+                }).ToList() ?? new List<ImageResponses>()
             };
         }
 
