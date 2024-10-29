@@ -38,6 +38,8 @@ builder.Services.AddScoped<IKoiFishColorRepository, KoiFishColorRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IPondFeatureRepository, PondFeatureRepository>();
 builder.Services.AddScoped<IPondFeatureService, PondFeatureService>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 // JWT
 builder.Services.AddSwaggerGen(option =>
