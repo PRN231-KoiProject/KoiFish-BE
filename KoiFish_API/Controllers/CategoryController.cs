@@ -85,6 +85,39 @@ namespace KoiFish_API.Controllers
                 Message = "Categories Update successfully."
             });
         }
+        [HttpDelete]
+        [Route("{categoryId}")]
+        public async Task<ActionResult<ResultModel>> Delete(Guid id)
+        {
+            var listCategory = await _categoryService.GetCategoryByIdAsync(id);
+            var update = _categoryService.DeleteCategory(id);
+            if (listCategory == null)
+            {
+                return Ok(_resultModel = new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Category not found."
+                });
+            }
+            if (update == null)
+            {
+                return Ok(_resultModel = new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Data = false,
+                    Message = "Category delete fail."
+                });
+            }
+            return Ok(_resultModel = new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Data = true,
+                Message = "Categories delete successfully."
+            });
+        }
         [HttpPost]
         public async Task<ActionResult<ResultModel>> AddCategory(CreateCategoryRequest request)
         {

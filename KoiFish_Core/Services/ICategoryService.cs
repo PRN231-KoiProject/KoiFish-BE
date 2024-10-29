@@ -12,7 +12,8 @@ namespace KoiFish_Core.Services
     {
         Task<PageResult<CategoryResponse>> GetAllCategories(int page, int limit);
         Task<bool> CreateAsync(CreateCategoryRequest request);
-        Task<CategoryResponse>GetCategoryByIdAsync(Guid id);
-        Task<bool>UpdateCategory(Guid id , CreateCategoryRequest request);
+        Task<CategoryResponse> GetCategoryByIdAsync(Guid id);
+        Task<bool> UpdateCategory(Guid id, CreateCategoryRequest request);
+        Task<bool> DeleteCategory(Guid id);
     }
 }

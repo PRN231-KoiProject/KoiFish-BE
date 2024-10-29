@@ -34,6 +34,14 @@ namespace KoiFish_Data.Services
             return true;
         }
 
+        public async Task<bool> DeleteCategory(Guid id)
+        {
+            var categoryId = await _categoryRepository.GetByIdAsync(id);
+            _categoryRepository.Remove(categoryId);
+            await _categoryRepository.SaveChangeAsync();
+            return true;
+        }
+
         public async Task<PageResult<CategoryResponse>> GetAllCategories(int page, int limit)
         {
             var listCategory = await _categoryRepository.GetAllCategories(page, limit);
@@ -72,7 +80,7 @@ namespace KoiFish_Data.Services
             var categoryId = await _categoryRepository.GetByIdAsync(id);
             if (categoryId == null)
             {
-                return false;    
+                return false;
             }
             categoryId.Breeds = request.Breeds;
             categoryId.Description = request.Description;
