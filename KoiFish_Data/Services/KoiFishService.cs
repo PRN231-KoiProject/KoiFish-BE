@@ -65,6 +65,18 @@ namespace KoiFish_Data.Services
             return true;
         }
 
+        public async Task<bool> DeleteKoiFish(Guid id)
+        {
+            var koiFishId = await _KoiFishRepository.GetKoiFishById(id);
+            if (koiFishId == null)
+            {
+                return false;
+            }
+            _KoiFishRepository.Remove(koiFishId);
+            await _KoiFishRepository.SaveChangeASync();
+            return true;
+        }
+
         public async Task<KoiFish_Core.PageResult<KoiFishResponse>> GetAllKoiFishAsync(int page, int limit)
         {
             var paginateKoiFishes = await _KoiFishRepository.GetAllKoiFistAsync(page, limit);
@@ -111,7 +123,8 @@ namespace KoiFish_Data.Services
             }
 
             return new KoiFishResponse
-            {   KoiFishId = query.KoiFishId,
+            {
+                KoiFishId = query.KoiFishId,
                 Category = query.Category?.Breeds,
                 FishElement = query.FishElement,
                 FishName = query.FishName,

@@ -124,6 +124,28 @@ namespace KoiFish_API.Controllers
                 Data = koiFish
             });
         }
+        [HttpDelete]
+        [Route("{koiFishId}")]
+        public async Task<ActionResult<ResultModel>> DeleteKoiFish(Guid koiFishId)
+        {
+            var koiFish = await _koiFishService.GetKoiFishByIdAsync(koiFishId);
+            if (koiFish == null)
+            {
 
+                return NotFound(new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "KoiFish not found."
+                });
+            }
+            return Ok(new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.NoContent,
+                Message = "Remove KoiFish Success.",
+                Data = true
+            });
+        }
     }
 }
