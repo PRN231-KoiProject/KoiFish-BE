@@ -124,6 +124,29 @@ namespace KoiFish_API.Controllers
                 Data = koiFish
             });
         }
+        [HttpGet]
+        [Route("element/{userId}")]
+        public async Task<ActionResult<ResultModel>> GetKoiFishByElementOfUser(Guid userId)
+        {
+
+            var koiFish = await _koiFishService.GetKoiFishByElementOfUser(userId);
+            if (koiFish == null)
+            {
+                return NotFound(new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "KoiFish not found."
+                });
+            }
+            return Ok(new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Message = "KoiFish with id retrieved successfully.",
+                Data = koiFish
+            });
+        }
         [HttpDelete]
         [Route("{koiFishId}")]
         public async Task<ActionResult<ResultModel>> DeleteKoiFish(Guid koiFishId)

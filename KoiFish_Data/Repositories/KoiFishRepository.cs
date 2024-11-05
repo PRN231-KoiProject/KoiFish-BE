@@ -50,6 +50,30 @@ namespace KoiFish_Data.Repositories
             return query;
         }
 
+        public async Task<IEnumerable<KoiFish>> GetKoiFishesByUserElementAsync(Guid userId)
+        {
+            var userElement = await _context.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.Elements.ElementName).FirstOrDefaultAsync();
+            string relatedElement = userElement switch
+            {
+                "Metal" => "Water",
+                "Water" => "Wood",
+                "Wood" => "Fire",
+                "Fire" => "Earth",
+                "Earth" => "Metal",
+                _ => null
+            };
+            if (relatedElement == null)
+            {
+                return new List<KoiFish>();
+            }
+            var KoiFishes = await _context.KoiFishes.Include(c => c.Category)
+            .Include(u => u.User).Include(img => img.Images)
+           .Include(k => k.FishColors).ThenInclude(fc => fc.Color)
+            .Where(kf => kf.FishElement == relatedElement).ToListAsync();
+            return KoiFishes;
+        }
 
         public async Task<int> SaveChangeASync()
         {

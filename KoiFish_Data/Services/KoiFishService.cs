@@ -113,6 +113,39 @@ namespace KoiFish_Data.Services
             };
         }
 
+        public async Task<IEnumerable<KoiFishResponse>> GetKoiFishByElementOfUser(Guid userId)
+        {
+
+            var koiFishes = await _KoiFishRepository.GetKoiFishesByUserElementAsync(userId);
+
+
+            if (koiFishes == null || !koiFishes.Any())
+            {
+                return Enumerable.Empty<KoiFishResponse>();
+            }
+
+
+            return koiFishes.Select(koiFish => new KoiFishResponse
+            {
+                Category = koiFish.Category?.Breeds,
+                KoiFishId = koiFish.KoiFishId,
+                User = koiFish.User?.FullName,
+                FishName = koiFish.FishName,
+                FishElement = koiFish.FishElement,
+                Lifespan = koiFish.Lifespan,
+                PriceRange = koiFish.PriceRange,
+                Size = koiFish.Size,
+                Colors = koiFish.FishColors?.Select(fc => new ColorResponses
+                {
+                    ColorName = fc.Color?.ColorName
+                }).ToList(),
+                Images = koiFish.Images?.Select(i => new ImageResponses
+                {
+                    ImageUrl = i.ImageUrl
+                }).ToList()
+            }).ToList();
+        }
+
         public async Task<KoiFishResponse> GetKoiFishByIdAsync(Guid id)
         {
             var query = await _KoiFishRepository.GetKoiFishById(id);

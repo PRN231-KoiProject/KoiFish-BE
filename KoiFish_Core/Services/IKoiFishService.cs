@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KoiFish_Core.Domain.Content;
 using KoiFish_Core.Models.Requests;
 using KoiFish_Core.Models.Responses;
 
@@ -14,5 +15,6 @@ namespace KoiFish_Core.Services
         Task<bool>UpdateKoiFishAsync(UpdateKoiFishRequest request , Guid id);
         Task<KoiFishResponse>GetKoiFishByIdAsync(Guid id);
         Task<bool>DeleteKoiFish(Guid id);
+        Task<IEnumerable<KoiFishResponse>>GetKoiFishByElementOfUser(Guid userId);
     }
 }
