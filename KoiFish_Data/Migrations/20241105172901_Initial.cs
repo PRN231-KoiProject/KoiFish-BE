@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace KoiFish_Data.Migrations
 {
     /// <inheritdoc />
@@ -343,7 +345,50 @@ namespace KoiFish_Data.Migrations
             migrationBuilder.InsertData(
                 table: "Elements",
                 columns: new[] { "BirthYear", "ElementName" },
-                values: new object[] { 2000, "Test" });
+                values: new object[,]
+                {
+                    { 1960, "Earth" },
+                    { 1961, "Earth" },
+                    { 1962, "Metal" },
+                    { 1963, "Metal" },
+                    { 1964, "Fire" },
+                    { 1965, "Fire" },
+                    { 1966, "Water" },
+                    { 1967, "Water" },
+                    { 1968, "Earth" },
+                    { 1969, "Earth" },
+                    { 1970, "Metal" },
+                    { 1971, "Metal" },
+                    { 1972, "Wood" },
+                    { 1973, "Wood" },
+                    { 1974, "Water" },
+                    { 1975, "Water" },
+                    { 1976, "Earth" },
+                    { 1977, "Earth" },
+                    { 1978, "Fire" },
+                    { 1979, "Fire" },
+                    { 1980, "Wood" },
+                    { 1981, "Wood" },
+                    { 1982, "Water" },
+                    { 1983, "Water" },
+                    { 1984, "Metal" },
+                    { 1985, "Metal" },
+                    { 1986, "Fire" },
+                    { 1987, "Fire" },
+                    { 1988, "Wood" },
+                    { 1989, "Wood" },
+                    { 1990, "Earth" },
+                    { 1991, "Earth" },
+                    { 1992, "Metal" },
+                    { 1993, "Metal" },
+                    { 1994, "Fire" },
+                    { 1995, "Fire" },
+                    { 1996, "Water" },
+                    { 1997, "Water" },
+                    { 1998, "Earth" },
+                    { 1999, "Earth" },
+                    { 2000, "Metal" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_UserId",
