@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace KoiFish_Core.Domain.Identity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
         public string Email { get; set; }
-        public string? Gender { get; set; }
+        public string? Gender { get; set; }       
         public int? BirthYear { get; set; }
         public string? Element { get; set; }
         public string? Avatar { get; set; }
@@ -25,5 +26,7 @@ namespace KoiFish_Core.Domain.Identity
         public Guid? UpdatedBy { get; set; }
 
         public ICollection<KoiFish> KoiFishs { get; set; }
+        [ForeignKey(nameof(BirthYear))]
+        public Element Elements { get; set; }
     }
 }

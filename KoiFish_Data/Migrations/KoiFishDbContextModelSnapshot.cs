@@ -90,6 +90,30 @@ namespace KoiFish_Data.Migrations
                     b.ToTable("Colors");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.Element", b =>
+                {
+                    b.Property<int>("BirthYear")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BirthYear"));
+
+                    b.Property<string>("ElementName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BirthYear");
+
+                    b.ToTable("Elements");
+
+                    b.HasData(
+                        new
+                        {
+                            BirthYear = 2000,
+                            ElementName = "Test"
+                        });
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.FishColor", b =>
                 {
                     b.Property<Guid>("FishColorId")
@@ -381,6 +405,10 @@ namespace KoiFish_Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BirthYear")
+                        .IsUnique()
+                        .HasFilter("[BirthYear] IS NOT NULL");
+
                     b.ToTable("Users");
                 });
 
@@ -575,6 +603,15 @@ namespace KoiFish_Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Identity.AppUser", b =>
+                {
+                    b.HasOne("KoiFish_Core.Domain.Content.Element", "Elements")
+                        .WithOne("User")
+                        .HasForeignKey("KoiFish_Core.Domain.Identity.AppUser", "BirthYear");
+
+                    b.Navigation("Elements");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Blog", b =>
                 {
                     b.Navigation("ImageBs");
@@ -583,6 +620,12 @@ namespace KoiFish_Data.Migrations
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Color", b =>
                 {
                     b.Navigation("FishColors");
+                });
+
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.Element", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Content.KoiFish", b =>

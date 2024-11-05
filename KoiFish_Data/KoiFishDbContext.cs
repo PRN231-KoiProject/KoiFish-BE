@@ -1,5 +1,6 @@
 ﻿using KoiFish_Core.Domain.Content;
 using KoiFish_Core.Domain.Identity;
+using KoiFish_Data.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace KoiFish_Data
         public DbSet<Image> Images { get; set; }
         public DbSet<PondFeature> PondFeatures { get; set; }
         public DbSet<FishColor> FishColors { get; set; }
+        public DbSet<Element> Elements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,6 +41,9 @@ namespace KoiFish_Data
 
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens")
                .HasKey(x => new { x.UserId });
+
+            // Element table
+            builder.ApplyConfiguration(new ElementConfiguration());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

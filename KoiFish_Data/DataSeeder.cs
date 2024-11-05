@@ -41,6 +41,7 @@ namespace KoiFish_Data
                     LockoutEnabled = false,
                     CreatedAt = DateTime.Now,
                     EmailConfirmed = true,
+                    BirthYear = 2000
                 };
                 user.PasswordHash = passwordHasher.HashPassword(user, "123As@");
                 await context.Users.AddAsync(user);

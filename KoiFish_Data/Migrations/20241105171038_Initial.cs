@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KoiFish_Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,6 +108,19 @@ namespace KoiFish_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Elements",
+                columns: table => new
+                {
+                    BirthYear = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ElementName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Elements", x => x.BirthYear);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PondFeatures",
                 columns: table => new
                 {
@@ -178,6 +191,11 @@ namespace KoiFish_Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Elements_BirthYear",
+                        column: x => x.BirthYear,
+                        principalTable: "Elements",
+                        principalColumn: "BirthYear");
                 });
 
             migrationBuilder.CreateTable(
@@ -322,6 +340,11 @@ namespace KoiFish_Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Elements",
+                columns: new[] { "BirthYear", "ElementName" },
+                values: new object[] { 2000, "Test" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_UserId",
                 table: "Blogs",
@@ -366,6 +389,13 @@ namespace KoiFish_Data.Migrations
                 name: "IX_KoiFishes_UserId",
                 table: "KoiFishes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_BirthYear",
+                table: "Users",
+                column: "BirthYear",
+                unique: true,
+                filter: "[BirthYear] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -418,6 +448,9 @@ namespace KoiFish_Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Elements");
         }
     }
 }
