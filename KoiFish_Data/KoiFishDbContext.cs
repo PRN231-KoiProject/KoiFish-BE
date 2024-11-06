@@ -44,6 +44,7 @@ namespace KoiFish_Data
 
             // Element table
             builder.ApplyConfiguration(new ElementConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

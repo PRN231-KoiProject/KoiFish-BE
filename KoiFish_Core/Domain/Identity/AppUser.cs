@@ -14,7 +14,6 @@ namespace KoiFish_Core.Domain.Identity
         public string FullName { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
-        public string Email { get; set; }
         public string? Gender { get; set; }       
         public int? BirthYear { get; set; }
         public string? Element { get; set; }
