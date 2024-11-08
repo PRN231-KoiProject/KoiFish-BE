@@ -17,5 +17,6 @@ namespace KoiFish_Core.Models.Requests
         public string FilterType { get; set; }
         public string CompatibleFish { get; set; }
         public string MaintenanceLevel { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

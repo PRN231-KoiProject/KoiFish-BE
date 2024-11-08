@@ -33,6 +33,7 @@ namespace KoiFish_Data.Services
                 Shape = request.Shape,
                 Size = request.Size,
                 WaterSource = request.WaterSource,
+                ImageUrl = request.ImageUrl
             };
             _pondFeatureRepository.Add(pondFeature);
             await _pondFeatureRepository.SaveChangeAsync();
@@ -57,8 +58,8 @@ namespace KoiFish_Data.Services
                     Position = ponds.Position,
                     Shape = ponds.Shape,
                     Size = ponds.Size,
-                    WaterSource = ponds.WaterSource
-
+                    WaterSource = ponds.WaterSource,
+                    ImageUrl = ponds.ImageUrl
 
                 });
 
@@ -88,8 +89,31 @@ namespace KoiFish_Data.Services
                 Position = ponds.Position,
                 Shape = ponds.Shape,
                 Size = ponds.Size,
-                WaterSource = ponds.WaterSource
+                WaterSource = ponds.WaterSource,
+                ImageUrl = ponds.ImageUrl
             };
+        }
+
+        public async Task<IEnumerable<PondFeatureResponse>> GetPondFeatureByUserElement(string element)
+        {
+
+            var ponds = await _pondFeatureRepository.GetPondFeaturesByElementOfUser(element);
+            return ponds.Select(pond => new PondFeatureResponse
+            {
+                CompatibleFish = pond.CompatibleFish,
+                Direction = pond.Direction,
+                Element = pond.Element,
+                FilterType = pond.FilterType,
+                MaintenanceLevel = pond.MaintenanceLevel,
+                PondId = pond.PondId,
+                PondMaterial = pond.PondMaterial,
+                Position = pond.Position,
+                Shape = pond.Shape,
+                Size = pond.Size,
+                WaterSource = pond.WaterSource,
+                ImageUrl = pond.ImageUrl
+            }).ToList();
+
         }
 
         public async Task<bool> RemoveAsync(Guid id)
@@ -113,6 +137,7 @@ namespace KoiFish_Data.Services
             pond.Shape = request.Shape;
             pond.Size = request.Size;
             pond.WaterSource = request.WaterSource;
+            pond.ImageUrl = request.ImageUrl;
             _pondFeatureRepository.Update(pond);
             await _pondFeatureRepository.SaveChangeAsync();
             return true;

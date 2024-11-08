@@ -77,6 +77,28 @@ namespace KoiFish_API.Controllers
                 Message = "Pond retrieved successfully."
             });
         }
+        [HttpGet]
+        [Route("element")]
+        public async Task<ActionResult<ResultModel>> GetByElement(string element)
+        {
+            var pond = await _pondFeatureService.GetPondFeatureByUserElement(element);
+            if (pond == null)
+            {
+                return new ResultModel
+                {
+                    Success = false,
+                    Status = (int)HttpStatusCode.NotFound,
+                    Message = "Pond not found. "
+                };
+            }
+            return Ok(new ResultModel
+            {
+                Success = true,
+                Status = (int)HttpStatusCode.OK,
+                Data = pond,
+                Message = "Pond retrieved successfully."
+            });
+        }
         [HttpPut]
         [Route("{pondFeatureId}")]
         public async Task<ActionResult<ResultModel>> Update(Guid pondFeatureId, UpdatePondFeatureRequest request)

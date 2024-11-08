@@ -33,6 +33,28 @@ namespace KoiFish_Data.Repositories
             };
         }
 
+        public async Task<IEnumerable<PondFeature>> GetPondFeaturesByElementOfUser(string element)
+        {
+            var userElement = await _context.Users
+            .Where(u => u.Elements.ElementName == element)
+            .Select(e => e.Elements.ElementName).FirstOrDefaultAsync();
+            string relatedElement = userElement switch
+            {
+                "Metal" => "Water",
+                "Water" => "Wood",
+                "Wood" => "Fire",
+                "Fire" => "Earth",
+                "Earth" => "Metal",
+                _ => null
+            };
+            if (relatedElement == null)
+            {
+                return new List<PondFeature>();
+            }
+            var pondFeature = await _context.PondFeatures.ToListAsync();
+            return pondFeature;
+        }
+
         public async Task<int> SaveChangeAsync()
         {
             return await _context.SaveChangesAsync();
