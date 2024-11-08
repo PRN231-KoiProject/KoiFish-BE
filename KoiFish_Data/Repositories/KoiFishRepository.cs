@@ -50,11 +50,12 @@ namespace KoiFish_Data.Repositories
             return query;
         }
 
-        public async Task<IEnumerable<KoiFish>> GetKoiFishesByUserElementAsync(Guid userId)
+        public async Task<IEnumerable<KoiFish>> GetKoiFishesByUserElementAsync(string element)
         {
             var userElement = await _context.Users
-            .Where(u => u.Id == userId)
-            .Select(u => u.Elements.ElementName).FirstOrDefaultAsync();
+            .Where(u => u.Elements.ElementName == element)
+            .Select(e => e.Elements.ElementName).FirstOrDefaultAsync();
+            
             string relatedElement = userElement switch
             {
                 "Metal" => "Water",

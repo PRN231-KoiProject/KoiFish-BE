@@ -13,6 +13,6 @@ namespace KoiFish_Core.Repositories
         Task<PaginatedResult<KoiFish>> GetAllKoiFistAsync(int page, int limit);
         Task<int> SaveChangeASync();
         Task<KoiFish>GetKoiFishById(Guid id);
-        Task<IEnumerable<KoiFish>>GetKoiFishesByUserElementAsync(Guid userId);
+        Task<IEnumerable<KoiFish>>GetKoiFishesByUserElementAsync(string element);
     }
 }

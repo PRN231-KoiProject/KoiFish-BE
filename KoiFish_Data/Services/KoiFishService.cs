@@ -113,10 +113,10 @@ namespace KoiFish_Data.Services
             };
         }
 
-        public async Task<IEnumerable<KoiFishResponse>> GetKoiFishByElementOfUser(Guid userId)
+        public async Task<IEnumerable<KoiFishResponse>> GetKoiFishByElementOfUser(string element)
         {
 
-            var koiFishes = await _KoiFishRepository.GetKoiFishesByUserElementAsync(userId);
+            var koiFishes = await _KoiFishRepository.GetKoiFishesByUserElementAsync(element);
 
 
             if (koiFishes == null || !koiFishes.Any())

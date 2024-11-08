@@ -15,6 +15,6 @@ namespace KoiFish_Core.Services
         Task<bool>UpdateKoiFishAsync(UpdateKoiFishRequest request , Guid id);
         Task<KoiFishResponse>GetKoiFishByIdAsync(Guid id);
         Task<bool>DeleteKoiFish(Guid id);
-        Task<IEnumerable<KoiFishResponse>>GetKoiFishByElementOfUser(Guid userId);
+        Task<IEnumerable<KoiFishResponse>>GetKoiFishByElementOfUser(string element);
     }
 }

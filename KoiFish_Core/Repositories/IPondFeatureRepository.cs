@@ -12,5 +12,6 @@ namespace KoiFish_Core.Repositories
     {
         Task<PaginatedResult<PondFeature>> GetAllPondFeatureAsync(int page, int limit);
         Task<int> SaveChangeAsync();
+        Task<IEnumerable<PondFeature>>GetPondFeaturesByElementOfUser(string element);
     }
 }

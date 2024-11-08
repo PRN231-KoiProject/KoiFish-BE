@@ -125,11 +125,11 @@ namespace KoiFish_API.Controllers
             });
         }
         [HttpGet]
-        [Route("element/{userId}")]
-        public async Task<ActionResult<ResultModel>> GetKoiFishByElementOfUser(Guid userId)
+        [Route("element")]
+        public async Task<ActionResult<ResultModel>> GetKoiFishByElementOfUser(string element)
         {
 
-            var koiFish = await _koiFishService.GetKoiFishByElementOfUser(userId);
+            var koiFish = await _koiFishService.GetKoiFishByElementOfUser(element);
             if (koiFish == null)
             {
                 return NotFound(new ResultModel

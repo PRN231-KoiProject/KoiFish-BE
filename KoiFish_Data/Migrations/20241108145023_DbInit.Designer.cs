@@ -4,6 +4,7 @@ using KoiFish_Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KoiFish_Data.Migrations
 {
     [DbContext(typeof(KoiFishDbContext))]
-    partial class KoiFishDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241108145023_DbInit")]
+    partial class DbInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,6 +338,27 @@ namespace KoiFish_Data.Migrations
                     b.ToTable("FishColors");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.FishPond", b =>
+                {
+                    b.Property<Guid>("FishPondId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("KoiFishId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PondId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FishPondId");
+
+                    b.HasIndex("KoiFishId");
+
+                    b.HasIndex("PondId");
+
+                    b.ToTable("FishPonds");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Image", b =>
                 {
                     b.Property<Guid>("ImageId")
@@ -466,16 +490,11 @@ namespace KoiFish_Data.Migrations
                     b.Property<double>("Size")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WaterSource")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PondId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PondFeatures");
                 });
@@ -503,15 +522,6 @@ namespace KoiFish_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c0278115-8549-4fad-890a-44f8e8fcc011"),
-                            DisplayName = "Khách Hàng",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        });
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Identity.AppUser", b =>
@@ -542,6 +552,7 @@ namespace KoiFish_Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -739,6 +750,25 @@ namespace KoiFish_Data.Migrations
                     b.Navigation("KoiFish");
                 });
 
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.FishPond", b =>
+                {
+                    b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
+                        .WithMany("FishPonds")
+                        .HasForeignKey("KoiFishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KoiFish_Core.Domain.Content.PondFeature", "PondFeature")
+                        .WithMany("FishPonds")
+                        .HasForeignKey("PondId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KoiFish");
+
+                    b.Navigation("PondFeature");
+                });
+
             modelBuilder.Entity("KoiFish_Core.Domain.Content.Image", b =>
                 {
                     b.HasOne("KoiFish_Core.Domain.Content.KoiFish", "KoiFish")
@@ -780,17 +810,6 @@ namespace KoiFish_Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KoiFish_Core.Domain.Content.PondFeature", b =>
-                {
-                    b.HasOne("KoiFish_Core.Domain.Identity.AppUser", "User")
-                        .WithMany("PondFeatures")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("KoiFish_Core.Domain.Identity.AppUser", b =>
                 {
                     b.HasOne("KoiFish_Core.Domain.Content.Element", "Elements")
@@ -820,14 +839,19 @@ namespace KoiFish_Data.Migrations
                 {
                     b.Navigation("FishColors");
 
+                    b.Navigation("FishPonds");
+
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("KoiFish_Core.Domain.Content.PondFeature", b =>
+                {
+                    b.Navigation("FishPonds");
                 });
 
             modelBuilder.Entity("KoiFish_Core.Domain.Identity.AppUser", b =>
                 {
                     b.Navigation("KoiFishs");
-
-                    b.Navigation("PondFeatures");
                 });
 #pragma warning restore 612, 618
         }

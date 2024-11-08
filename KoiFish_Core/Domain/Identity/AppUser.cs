@@ -23,7 +23,7 @@ namespace KoiFish_Core.Domain.Identity
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
-
+        public ICollection<PondFeature> PondFeatures { get; set; }
         public ICollection<KoiFish> KoiFishs { get; set; }
         [ForeignKey(nameof(BirthYear))]
         public Element Elements { get; set; }
