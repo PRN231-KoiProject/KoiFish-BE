@@ -33,7 +33,8 @@ namespace KoiFish_Data.Services
                 Shape = request.Shape,
                 Size = request.Size,
                 WaterSource = request.WaterSource,
-                ImageUrl = request.ImageUrl
+                ImageUrl = request.ImageUrl,
+                UserId = request.UserId
             };
             _pondFeatureRepository.Add(pondFeature);
             await _pondFeatureRepository.SaveChangeAsync();

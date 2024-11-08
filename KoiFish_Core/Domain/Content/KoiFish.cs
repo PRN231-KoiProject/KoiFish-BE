@@ -27,7 +27,7 @@ namespace KoiFish_Core.Domain.Content
         [ForeignKey(nameof(UserId))]
         public AppUser User { get; set; }
 
-        public ICollection<FishPond> FishPonds { get; set; }
+        
         public ICollection<FishColor> FishColors { get; set; }
         public ICollection<Image>Images{get;set;}
     }

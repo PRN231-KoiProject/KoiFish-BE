@@ -32,12 +32,15 @@ namespace KoiFish_Data.Repositories
                 TotalCount = totalItems,
             };
         }
-
         public async Task<IEnumerable<PondFeature>> GetPondFeaturesByElementOfUser(string element)
         {
+            // Find the user's element based on the input
             var userElement = await _context.Users
-            .Where(u => u.Elements.ElementName == element)
-            .Select(e => e.Elements.ElementName).FirstOrDefaultAsync();
+                .Where(u => u.Elements.ElementName == element)
+                .Select(e => e.Elements.ElementName)
+                .FirstOrDefaultAsync();
+
+            // Determine the related element based on the user's element
             string relatedElement = userElement switch
             {
                 "Metal" => "Water",
@@ -47,13 +50,21 @@ namespace KoiFish_Data.Repositories
                 "Earth" => "Metal",
                 _ => null
             };
+
+            // If no related element is found, return an empty list
             if (relatedElement == null)
             {
                 return new List<PondFeature>();
             }
-            var pondFeature = await _context.PondFeatures.ToListAsync();
-            return pondFeature;
+
+            // Query PondFeatures with the related element only
+            var pondFeatures = await _context.PondFeatures
+                .Where(pf => pf.Element == relatedElement)
+                .ToListAsync();
+
+            return pondFeatures;
         }
+
 
         public async Task<int> SaveChangeAsync()
         {
