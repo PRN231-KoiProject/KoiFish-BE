@@ -40,6 +40,7 @@ builder.Services.AddScoped<IPondFeatureRepository, PondFeatureRepository>();
 builder.Services.AddScoped<IPondFeatureService, PondFeatureService>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // JWT
 builder.Services.AddSwaggerGen(option =>
