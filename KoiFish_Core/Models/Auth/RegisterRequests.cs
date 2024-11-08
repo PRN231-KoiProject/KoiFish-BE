@@ -13,5 +13,6 @@ namespace KoiFish_Core.Models.Auth
         public string Password { get; set; }
         public int BirthYear { get; set; }
         public string Gender { get; set; }
+        public string Phone { get; set; }
     }
 }

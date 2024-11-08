@@ -59,6 +59,7 @@ namespace KoiFish_API.Controllers
                 BirthYear = request.BirthYear,
                 Gender = request.Gender,
                 UserName = request.Email,
+                PhoneNumber = request.Phone,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 LockoutEnabled = false,
                 CreatedAt = DateTime.Now,
@@ -127,6 +128,8 @@ namespace KoiFish_API.Controllers
             _resultModel.Success = true;
             _resultModel.Data = new AuthenticatedResult
             {
+                UserId = user.Id, 
+                Role = string.Join(";", roles),
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,
                 ExpiredAt = user.RefreshTokenExpiryTime
