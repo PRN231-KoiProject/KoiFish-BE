@@ -172,7 +172,7 @@ var user = await _repositoryManager.GetUserByPhoneAsync(phoneNumber);
 
             return result.Succeeded;        }
 
-        public async Task<UserResponse> UpdateUser(Guid id, CreateUserRequest User)
+        public async Task<UserResponse> UpdateUser(Guid id, CreateUpdateUserRequest User)
         {
 
             var UserToEdit = await _userManager.FindByIdAsync(id.ToString());
@@ -204,10 +204,6 @@ var user = await _repositoryManager.GetUserByPhoneAsync(phoneNumber);
             if (UserToEdit.FullName != User.FullName)
             {
                 UserToEdit.FullName = User.FullName;
-            }
-            if (UserToEdit.UserName != User.Username)
-            {
-                UserToEdit.UserName = User.Username;
             }
 
             if (UserToEdit.PhoneNumber != User.PhoneNumber)

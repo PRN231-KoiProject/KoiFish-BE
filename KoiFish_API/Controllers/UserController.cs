@@ -130,7 +130,7 @@ namespace KoiFish_API.Controllers
         }
 
         [HttpPost("admin/{userId}")]
-        public async Task<ActionResult<ResultModel>> Update(Guid userId, CreateUserRequest request)
+        public async Task<ActionResult<ResultModel>> Update(Guid userId, CreateUpdateUserRequest request)
         {
             var update = await _serviceManager.UpdateUser(userId, request);
             if (update == null)

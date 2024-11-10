@@ -13,7 +13,7 @@ namespace KoiFish_Core.Services
     {  
         
         Task<PageResult<UserResponse>> GetUsersAsync(int page, int limit, string search, bool? status);
-        Task<UserResponse> UpdateUser(Guid id, CreateUserRequest user);
+        Task<UserResponse> UpdateUser(Guid id, CreateUpdateUserRequest user);
         Task<bool> RemoveUser(Guid id);
         Task<UserResponse> AddUser(CreateUserRequest User);
 
